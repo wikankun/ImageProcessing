@@ -22,7 +22,7 @@ function varargout = tugas1(varargin)
 
 % Edit the above text to modify the response to help tugas1
 
-% Last Modified by GUIDE v2.5 24-Jan-2019 22:41:48
+% Last Modified by GUIDE v2.5 05-Feb-2019 09:25:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,6 +80,7 @@ function inputimage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [filename pathname] = uigetfile({'*.png;*.jpg';},'File Selector');
+global image;
 image = strcat(pathname, filename);
 axes(handles.axes1);
 imshow(image);
@@ -108,29 +109,6 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
 % --- Executes on button press in clearimage.
 function clearimage_Callback(hObject, eventdata, handles)
 % hObject    handle to clearimage (see GCBO)
@@ -138,3 +116,25 @@ function clearimage_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 cla(handles.axes1,'reset');
 axis off;
+
+
+% --- Executes on button press in grayscaleimage.
+function grayscaleimage_Callback(hObject, eventdata, handles)
+% hObject    handle to grayscaleimage (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global image;
+map = imread(image);
+R = map(:,:,1);
+G = map(:,:,2);
+B = map(:,:,3);
+sumR = sum(R(:));
+sumG = sum(G(:));
+sumB = sum(B(:));
+sumTotal = sum([sumR, sumG, sumB]);
+varR = sumR/sumTotal;
+varG = sumG/sumTotal;
+varB = sumB/sumTotal;
+newimage = varR * R + varG * G + varB * B;
+axes(handles.axes1);
+imshow(newimage);
