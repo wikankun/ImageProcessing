@@ -82,7 +82,8 @@ function inputimage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Membuka window file selector untuk memilih gambar bertipe .jpg dan .png
+% Membuka window file selector untuk memilih gambar bertipe .jpg, .png dan
+% .bmp
 [filename pathname] = uigetfile({'*.jpg;*.png;*.bmp';},'File Selector');
 % Membuat image menjadi variabel global
 global image;
@@ -90,7 +91,7 @@ image = strcat(pathname, filename);
 % Membuat map menjadi variabel global
 global map;
 map = imread(image);
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(image);
 % Menampilkan direktori file
@@ -125,7 +126,7 @@ function clearimage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Menghapus image dari axes1
+% Menghapus gambar dari axes1
 cla(handles.axes1,'reset');
 axis off;
 
@@ -150,10 +151,10 @@ varR = sumR/sumTotal;
 varG = sumG/sumTotal;
 varB = sumB/sumTotal;
 % Membuat grayscale
-newimage = varR * R + varG * G + varB * B;
-% Menampilkan image di axes1
+newmap = varR * R + varG * G + varB * B;
+% Menampilkan gambar di axes1
 axes(handles.axes1);
-imshow(newimage);
+imshow(newmap);
 
 
 % --- Executes on button press in tambahbutton.
@@ -166,7 +167,7 @@ function tambahbutton_Callback(hObject, eventdata, handles)
 global map;
 % Menambahkan nilai masing-masing pixel sebanyak 10
 map(:,:,:) = map(:,:,:) + 10;
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(map);
 
@@ -180,7 +181,7 @@ function kalibutton_Callback(hObject, eventdata, handles)
 global map;
 % Mengalikan nilai masing-masing pixel sebanyak 1.5
 map(:,:,:) = map(:,:,:) * 1.5;
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(map);
 
@@ -195,7 +196,7 @@ function kurangbutton_Callback(hObject, eventdata, handles)
 global map;
 % Mengurangi nilai masing-masing pixel sebanyak 10
 map(:,:,:) = map(:,:,:) - 10;
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(map);
 
@@ -210,7 +211,7 @@ function bagibutton_Callback(hObject, eventdata, handles)
 global map;
 % Membagi nilai masing-masing pixel sebanyak 1.5
 map(:,:,:) = map(:,:,:) / 1.5;
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(map);
 
@@ -223,10 +224,30 @@ function zoominbutton_Callback(hObject, eventdata, handles)
 
 % Memanggil variabel global map
 global map;
+    
+% Membuat array kosong
+row = 2*size(map,1);
+column = 2*size(map,2);
+newmap = zeros(row, column, 3);
 
-% Menampilkan image di axes1
-axes(handles.axes1);
-imshow(Y);
+m = 1; n = 1;
+% Melakukan iterasi pada gambar
+for i = 1:size(map,1)
+    for j = 1:size(map,2)
+        % Mengambil nilai dari gambar
+        newmap(m,n,:) = map(i,j,:);
+        newmap(m,n+1,:) = map(i,j,:);
+        newmap(m+1,n,:) = map(i,j,:);
+        newmap(m+1,n+1,:) = map(i,j,:);
+        n = n+2;
+    end
+    m = m+2;
+    n = 1;    
+end
+
+% Menampilkan gambar pada window baru
+figure, imshow(uint8(newmap));
+% guidata(hObject,handles);
 
 
 % --- Executes on button press in zoomoutbutton.
@@ -238,10 +259,24 @@ function zoomoutbutton_Callback(hObject, eventdata, handles)
 % Memanggil variabel global map
 global map;
 
-% Menampilkan image di axes1
-axes(handles.axes1);
-imshow(map);
+% Membuat array kosong
+newmap = zeros(round(size(map,1)/2), round(size(map,2)/2), 3);
 
+% Melakukan iterasi pada gambar
+m = 1; n = 1;
+for i = 1:size(newmap,1)
+    for j = 1:size(newmap,2)
+        % Mengambil nilai dari gambar
+        newmap(i,j,:) = map(m,n,:);
+        n = round(n+2);
+    end
+    m = round(m+2);
+    n = 1;
+end
+
+% Menampilkan gambar pada window baru
+figure, imshow(uint8(newmap));
+% guidata(hObject,handles);
 
 
 function posx1_Callback(hObject, eventdata, handles)
@@ -251,8 +286,6 @@ function posx1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of posx1 as text
 %        str2double(get(hObject,'String')) returns contents of posx1 as a double
-global x1;
-x1 = str2double(get(handles.posx1, 'String'));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -276,8 +309,6 @@ function posx2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of posx2 as text
 %        str2double(get(hObject,'String')) returns contents of posx2 as a double
-global x2;
-x2 = str2double(get(handles.posx2, 'String'));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -301,8 +332,6 @@ function posy1_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of posy1 as text
 %        str2double(get(hObject,'String')) returns contents of posy1 as a double
-global y1;
-y1 = str2double(get(handles.posy1, 'String'));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -326,8 +355,6 @@ function posy2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of posy2 as text
 %        str2double(get(hObject,'String')) returns contents of posy2 as a double
-global y2;
-y2 = str2double(get(handles.posy2, 'String'));
 
 
 % --- Executes during object creation, after setting all properties.
@@ -348,11 +375,18 @@ function cropbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to cropbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 % Memanggil variabel global map, dan x1,x2,y1,y1
 global map;
 global x1; global x2; global y1, global y2;
 
+
+x1 = str2double(get(handles.posx1, 'String'));
+x2 = str2double(get(handles.posx2, 'String'));
+y1 = str2double(get(handles.posy1, 'String'));
+y2 = str2double(get(handles.posy2, 'String'));
+
 newmap = map(x1:x2, y1:y2, :);
-% Menampilkan image di axes1
+% Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(newmap);
