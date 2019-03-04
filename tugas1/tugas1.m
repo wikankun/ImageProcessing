@@ -22,7 +22,7 @@ function varargout = tugas1(varargin)
 
 % Edit the above text to modify the response to help tugas1
 
-% Last Modified by GUIDE v2.5 04-Mar-2019 18:38:19
+% Last Modified by GUIDE v2.5 04-Mar-2019 19:57:46
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -224,12 +224,10 @@ function zoominbutton_Callback(hObject, eventdata, handles)
 
 % Memanggil variabel global map
 global map;
-    
 % Membuat array kosong
 row = 2*size(map,1);
 column = 2*size(map,2);
 newmap = zeros(row, column, 3);
-
 m = 1; n = 1;
 % Melakukan iterasi pada gambar
 for i = 1:size(map,1)
@@ -244,7 +242,6 @@ for i = 1:size(map,1)
     m = m+2;
     n = 1;    
 end
-
 % Menampilkan gambar pada window baru
 figure, imshow(uint8(newmap));
 % guidata(hObject,handles);
@@ -258,10 +255,8 @@ function zoomoutbutton_Callback(hObject, eventdata, handles)
 
 % Memanggil variabel global map
 global map;
-
 % Membuat array kosong
 newmap = zeros(round(size(map,1)/2), round(size(map,2)/2), 3);
-
 % Melakukan iterasi pada gambar
 m = 1; n = 1;
 for i = 1:size(newmap,1)
@@ -273,7 +268,6 @@ for i = 1:size(newmap,1)
     m = round(m+2);
     n = 1;
 end
-
 % Menampilkan gambar pada window baru
 figure, imshow(uint8(newmap));
 % guidata(hObject,handles);
@@ -380,7 +374,6 @@ function cropbutton_Callback(hObject, eventdata, handles)
 global map;
 global x1; global x2; global y1, global y2;
 
-
 x1 = str2double(get(handles.posx1, 'String'));
 x2 = str2double(get(handles.posx2, 'String'));
 y1 = str2double(get(handles.posy1, 'String'));
@@ -412,5 +405,75 @@ histG = histogram(G);
 axes(handles.axes4);
 histB = histogram(B);
 
+
+% --- Executes on button press in histeqbutton.
+function histeqbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to histeqbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global image dan global map
+% global image;
+% I = imread(image);
+global map;
+I = map;
+
+% Mengambil ukuran dari gambar
+[r,c,x] = size(I); 
+% Membuat sebuah variabel blank
+blank = uint8(zeros(r,c,x));
+% Jumlah pixel
+n = r*c*x;
+% Inisialisasi
+f = zeros(256,1);
+pdf = zeros(256,1);
+cdf = zeros(256,1);
+out = zeros(256,1);
+cum = zeros(256,1);
+
+% Update nilai pdf
+for i = 1:r
+    for j = 1:c
+        for k = 1:x;
+            value = I(i,j,k);
+            f(value+1) = f(value+1)+1;
+            pdf(value+1) = f(value+1)/n;
+        end
+    end
+end
+
+% Mencari cdf
+sum = 0;
+L = 255;
+
+for i = 1:size(pdf);
+    sum = sum + f(i);
+    cum(i) = sum;
+    cdf(i) = cum(i)/n;
+    out(i) = round(cdf(i)*L);
+end
+
+for i = 1:r;
+    for j = 1:c;
+        for k = 1:x;
+            blank(i,j,k) = out(I(i,j,k)+1);
+        end
+    end
+end
+
 axes(handles.axes1);
-imshow(map);
+imshow(blank);
+
+map = blank;
+
+% Melakukan perhitungan terhadap R, G, dan B
+R = blank(:,:,1);
+G = blank(:,:,2);
+B = blank(:,:,3);
+% Membuat histogram dari R, G, dan B
+axes(handles.axes2);
+histR = histogram(R);
+axes(handles.axes3);
+histG = histogram(G);
+axes(handles.axes4);
+histB = histogram(B);
