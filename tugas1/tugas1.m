@@ -22,7 +22,7 @@ function varargout = tugas1(varargin)
 
 % Edit the above text to modify the response to help tugas1
 
-% Last Modified by GUIDE v2.5 19-Feb-2019 08:44:45
+% Last Modified by GUIDE v2.5 04-Mar-2019 18:38:19
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -390,3 +390,27 @@ newmap = map(x1:x2, y1:y2, :);
 % Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(newmap);
+
+
+% --- Executes on button press in histogrambutton.
+function histogrambutton_Callback(hObject, eventdata, handles)
+% hObject    handle to histogrambutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Melakukan perhitungan terhadap R, G, dan B
+R = map(:,:,1);
+G = map(:,:,2);
+B = map(:,:,3);
+% Membuat histogram dari R, G, dan B
+axes(handles.axes2);
+histR = histogram(R);
+axes(handles.axes3);
+histG = histogram(G);
+axes(handles.axes4);
+histB = histogram(B);
+
+axes(handles.axes1);
+imshow(map);
