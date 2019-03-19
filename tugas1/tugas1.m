@@ -22,7 +22,7 @@ function varargout = tugas1(varargin)
 
 % Edit the above text to modify the response to help tugas1
 
-% Last Modified by GUIDE v2.5 04-Mar-2019 19:57:46
+% Last Modified by GUIDE v2.5 19-Mar-2019 10:12:39
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -477,3 +477,108 @@ axes(handles.axes3);
 histG = histogram(G);
 axes(handles.axes4);
 histB = histogram(B);
+
+
+% --- Executes on button press in blurbutton.
+function blurbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to blurbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Mengambil ukuran dari gambar
+[r,c,x] = size(map);
+% Membuat variabel newmap
+newmap = double(map);
+
+% Kernel Blur Gaussian
+y = [1/16 1/8 1/16;
+    1/8 1/4 1/8;
+    1/16 1/8 1/16];
+
+% Algoritma penerapan kernel
+for i = 2 : r - 2
+    for j = 2 : c - 2
+        result = newmap(i-1,j-1,:)*y(1,1,:) + newmap(i,j-1,:)*y(2,1,:)...
+            + newmap(i+1,j-1,:)*y(3,1,:) + newmap(i-1,j,:)*y(1,2,:)...
+            + newmap(i,j,:)*y(2,2,:) + newmap(i+1,j,:)*y(3,2,:)...
+            + newmap(i-1,j+1,:)*y(1,3,:) + newmap(i,j+1,:)*y(2,3,:)...
+            + newmap(i+1,j+1,:)*y(3,3,:);
+        newmap(i-1,j-1,:) = result;
+    end
+end
+
+% Menampilkan gambar di axes1
+axes(handles.axes1);
+imshow(uint8(newmap));
+
+
+% --- Executes on button press in sharpbutton.
+function sharpbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to sharpbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Mengambil ukuran dari gambar
+[r,c,x] = size(map);
+% Membuat variabel newmap
+newmap = double(map);
+
+% Kernel Sharpen
+y = [0 -1 0;
+    -1 5 -1;
+    0 -1 0];
+
+% Algoritma penerapan kernel
+for i = 2 : r - 2
+    for j = 2 : c - 2
+        result = newmap(i-1,j-1,:)*y(1,1,:) + newmap(i,j-1,:)*y(2,1,:)...
+            + newmap(i+1,j-1,:)*y(3,1,:) + newmap(i-1,j,:)*y(1,2,:)...
+            + newmap(i,j,:)*y(2,2,:) + newmap(i+1,j,:)*y(3,2,:)...
+            + newmap(i-1,j+1,:)*y(1,3,:) + newmap(i,j+1,:)*y(2,3,:)...
+            + newmap(i+1,j+1,:)*y(3,3,:);
+        newmap(i-1,j-1,:) = result;
+    end
+end
+
+% Menampilkan gambar di axes1
+axes(handles.axes1);
+imshow(uint8(newmap));
+
+
+% --- Executes on button press in edgebutton.
+function edgebutton_Callback(hObject, eventdata, handles)
+% hObject    handle to edgebutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Mengambil ukuran dari gambar
+[r,c,x] = size(map);
+% Membuat variabel newmap
+newmap = double(map);
+
+% Kernel detect edge
+y = [1 1 1;
+    1 -8 1;
+    1 1 1];
+
+% Algoritma penerapan kernel
+for i = 2 : r - 2
+    for j = 2 : c - 2
+        result = newmap(i-1,j-1,:)*y(1,1,:) + newmap(i,j-1,:)*y(2,1,:)...
+            + newmap(i+1,j-1,:)*y(3,1,:) + newmap(i-1,j,:)*y(1,2,:)...
+            + newmap(i,j,:)*y(2,2,:) + newmap(i+1,j,:)*y(3,2,:)...
+            + newmap(i-1,j+1,:)*y(1,3,:) + newmap(i,j+1,:)*y(2,3,:)...
+            + newmap(i+1,j+1,:)*y(3,3,:);
+        newmap(i-1,j-1,:) = result;
+    end
+end
+
+% Menampilkan gambar di axes1
+axes(handles.axes1);
+imshow(uint8(newmap));
