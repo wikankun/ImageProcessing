@@ -22,7 +22,7 @@ function varargout = tugas1(varargin)
 
 % Edit the above text to modify the response to help tugas1
 
-% Last Modified by GUIDE v2.5 19-Mar-2019 10:12:39
+% Last Modified by GUIDE v2.5 23-Apr-2019 08:32:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -582,3 +582,266 @@ end
 % Menampilkan gambar di axes1
 axes(handles.axes1);
 imshow(uint8(newmap));
+
+
+
+function tresholdr_Callback(hObject, eventdata, handles)
+% hObject    handle to tresholdr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of tresholdr as text
+%        str2double(get(hObject,'String')) returns contents of tresholdr as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function tresholdr_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to tresholdr (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+function tresholdg_Callback(hObject, eventdata, handles)
+% hObject    handle to tresholdg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of tresholdg as text
+%        str2double(get(hObject,'String')) returns contents of tresholdg as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function tresholdg_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to tresholdg (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function tresholdb_Callback(hObject, eventdata, handles)
+% hObject    handle to tresholdb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of tresholdb as text
+%        str2double(get(hObject,'String')) returns contents of tresholdb as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function tresholdb_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to tresholdb (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+function seedx_Callback(hObject, eventdata, handles)
+% hObject    handle to seedx (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of seedx as text
+%        str2double(get(hObject,'String')) returns contents of seedx as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function seedx_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to seedx (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function seedy_Callback(hObject, eventdata, handles)
+% hObject    handle to seedy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of seedy as text
+%        str2double(get(hObject,'String')) returns contents of seedy as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function seedy_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to seedy (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function seedtreshold_Callback(hObject, eventdata, handles)
+% hObject    handle to seedtreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of seedtreshold as text
+%        str2double(get(hObject,'String')) returns contents of seedtreshold as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function seedtreshold_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to seedtreshold (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in thresholdbutton.
+function thresholdbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to thresholdbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+
+% Mengambil nilai Threshold R G B
+r = str2double(get(handles.tresholdr, 'String'));
+g = str2double(get(handles.tresholdg, 'String'));
+b = str2double(get(handles.tresholdb, 'String'));
+
+% Membuat newmap kosong
+newmap = uint8(zeros(size(map)));
+[r, c, x] = size(map);
+
+for i = 1 : r
+    for j = 1 : c
+        if ((map(i,j,1) >= r) && (map(i,j,2) >= g) && (map(i,j,3) >= b))
+            newmap(i,j,:) = map(i,j,:);
+        end
+    end
+end
+
+% Menampilkan gambar pada window baru
+newmap = uint8(newmap);
+figure,imshow(newmap);
+
+
+
+% --- Executes on button press in seedbutton.
+function seedbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to seedbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Mengambil nilai x dan y dan nilai threshold
+x = str2double(get(handles.seedx,'String'));
+y = str2double(get(handles.seedy,'String'));
+threshold = str2double(get(handles.seedtreshold,'String'));
+
+
+
+% --- Executes on button press in erosibutton.
+function erosibutton_Callback(hObject, eventdata, handles)
+% hObject    handle to erosibutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Membuat gambar bw dari map
+x = im2bw(map);
+% membuat gambar komplemen dari x
+bwmap = imcomplement(x);
+[r, c]=size(bwmap);
+newmap = double(bwmap);
+
+% Operasi penipisan
+% Untuk setiap pixel yang bernilai 1 di bwmap dan bernilai 0 di newmap akan
+% diubah nilainya menjadi 2 di newmap (agar terdeteksi sebagai selain 0
+% dan 1)
+for i=2 : r-2
+    for j=2 : c-2
+        if bwmap(i,j)==1
+            if newmap(i,j-1)==0 || newmap(i,j+1)==0 || newmap(i-1,j)==0 || newmap(i+1,j)==0
+                newmap(i,j)=2;
+            end
+        end
+    end
+end
+
+newnewmap = zeros(r,c);
+% Untuk setiap pixel yang bernilai 1 di newmap, akan disalin ke newnewmap
+for i=1 : r
+    for j=1 : c
+        if newmap(i,j)==1
+            newnewmap(i,j)=1;
+        end
+    end
+end
+
+% Menampilkan gambar pada window baru
+figure;
+subplot(1,2,1), subimage(bwmap), title('Citra Biner');
+subplot(1,2,2), subimage(newnewmap), title('Hasil Erosi');
+
+
+
+% --- Executes on button press in dilasibutton.
+function dilasibutton_Callback(hObject, eventdata, handles)
+% hObject    handle to dilasibutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Memanggil variabel global map
+global map;
+% Membuat gambar bw dari map
+x = im2bw(map);
+% membuat gambar komplemen dari x
+bwmap = imcomplement(x);
+[r, c] = size(bwmap);
+newmap = bwmap;
+
+% Operasi penebalan
+for i=2 : r-2
+    for j=2 : c-2
+        if bwmap(i,j) == 1
+            newmap(i,j-1) = 1;
+            newmap(i,j)   = 1;
+            newmap(i,j+1) = 1;
+            newmap(i-1,j) = 1;
+            newmap(i+1,j) = 1;
+        end
+    end
+end
+
+% Menampilkan gambar pada window baru
+figure;
+subplot(1,2,1), subimage(bwmap), title('Citra Biner');
+subplot(1,2,2), subimage(newmap), title('Hasil Dilasi');
